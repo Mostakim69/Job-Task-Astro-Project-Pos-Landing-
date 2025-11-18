@@ -22,7 +22,7 @@ const Testimonials = () => {
         "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60",
       name: "Md Mahir Faisal",
       handle: "@faisal09",
-      date: "Septembar 5, 2025",
+      date: "September 5, 2025",
       testimonial:
         "The reporting tools are extremely helpful for understanding customer behavior and sales patterns. This POS system helped us grow our cafe’s revenue by improving speed and accuracy.",
     },
@@ -39,7 +39,7 @@ const Testimonials = () => {
 
   const CreateCard = ({ card }) => (
     <div
-      className="p-6 rounded-xl mx-4 bg-white shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 w-80 shrink-0 flex flex-col"
+      className="p-6 rounded-xl mx-4 bg-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-80 shrink-0 flex flex-col"
       role="article"
       aria-label={`Testimonial by ${card.name}`}
     >
@@ -47,9 +47,9 @@ const Testimonials = () => {
         <img
           className="size-12 rounded-full object-cover border-2 border-indigo-100"
           src={card.image}
-          alt={`${card.name}'s profile`}
+          alt={`${card.name}’s profile`}
         />
-        <div className="flex flex-col">
+        <div>
           <div className="flex items-center gap-1.5">
             <p className="font-semibold text-gray-900">{card.name}</p>
             <svg
@@ -71,9 +71,11 @@ const Testimonials = () => {
           <span className="text-sm text-gray-500">{card.handle}</span>
         </div>
       </div>
+
       <p className="text-base text-gray-700 py-4 leading-relaxed">
         {card.testimonial}
       </p>
+
       <div className="flex items-center justify-between text-gray-500 text-sm">
         <div className="flex items-center gap-1.5">
           <span>Posted on</span>
@@ -106,66 +108,63 @@ const Testimonials = () => {
   return (
     <>
       <style>{`
-                @keyframes marqueeScroll {
-                    0% { transform: translateX(0%); }
-                    100% { transform: translateX(-50%); }
-                }
+        @keyframes marqueeScroll {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
 
-                .marquee-row {
-                    position: relative;
-                    overflow: hidden;
-                }
+        .marquee-row { overflow: hidden; position: relative; }
+        .marquee-inner {
+          display: flex;
+          min-width: 200%;
+          animation: marqueeScroll 30s linear infinite;
+          will-change: transform;
+        }
 
-                .marquee-inner {
-                    animation: marqueeScroll 30s linear infinite;
-                    display: flex;
-                    min-width: 200%;
-                    will-change: transform;
-                }
+        .marquee-inner:hover {
+          animation-play-state: paused;
+        }
 
-                .marquee-inner:hover {
-                    animation-play-state: paused;
-                }
+        .marquee-reverse {
+          animation-direction: reverse;
+        }
 
-                .marquee-reverse {
-                    animation-direction: reverse;
-                }
-
-                @media (max-width: 640px) {
-                    .marquee-inner {
-                        animation-duration: 20s;
-                    }
-                    .w-80 {
-                        width: 70vw;
-                    }
-                }
-            `}</style>
+        @media (max-width: 640px) {
+          .marquee-inner { animation-duration: 20s; }
+          .w-80 { width: 70vw; }
+        }
+      `}</style>
 
       <section className="py-12 bg-gray-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-14 text-gray-900 bg-clip-text drop-shadow-xl animate-pulse">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-14 text-gray-900 drop-shadow-xl">
             What Our Users Say
           </h2>
+
+          {/* Row 1 */}
           <div className="marquee-row">
-            <div className="absolute left-0 top-0 h-full w-16 md:w-24 z-10 pointer-events-none bg-gradient-to-r from-gray-50 to-transparent"></div>
+            <div className="absolute left-0 top-0 h-full w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
+
             <div className="marquee-inner pt-6 pb-4">
               {[...cardsData, ...cardsData].map((card, index) => (
                 <CreateCard key={`${card.handle}-${index}`} card={card} />
               ))}
             </div>
-            <div className="absolute right-0 top-0 h-full w-16 md:w-24 z-10 pointer-events-none bg-gradient-to-l from-gray-50 to-transparent"></div>
+
+            <div className="absolute right-0 top-0 h-full w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none"></div>
           </div>
+
+          {/* Row 2 (reverse) */}
           <div className="marquee-row mt-8">
-            <div className="absolute left-0 top-0 h-full w-16 md:w-24 z-10 pointer-events-none bg-gradient-to-r from-gray-50 to-transparent"></div>
+            <div className="absolute left-0 top-0 h-full w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
+
             <div className="marquee-inner marquee-reverse pt-6 pb-4">
               {[...cardsData, ...cardsData].map((card, index) => (
-                <CreateCard
-                  key={`${card.handle}-${index}-reverse`}
-                  card={card}
-                />
+                <CreateCard key={`${card.handle}-${index}-rev`} card={card} />
               ))}
             </div>
-            <div className="absolute right-0 top-0 h-full w-16 md:w-24 z-10 pointer-events-none bg-gradient-to-l from-gray-50 to-transparent"></div>
+
+            <div className="absolute right-0 top-0 h-full w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none"></div>
           </div>
         </div>
       </section>
