@@ -39,7 +39,7 @@ const Testimonials = () => {
 
   const CreateCard = ({ card }) => (
     <div
-      className="p-6 rounded-xl mx-4 bg-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-80 shrink-0 flex flex-col"
+      className="p-6 rounded-xl mx-4 bg-blue-50 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-80 shrink-0 flex flex-col"
       role="article"
       aria-label={`Testimonial by ${card.name}`}
     >

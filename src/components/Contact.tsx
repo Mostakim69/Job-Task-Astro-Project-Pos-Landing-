@@ -3,7 +3,6 @@ import type { ChangeEvent, FormEvent, FC } from "react";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 
-// Form ডাটার টাইপ
 interface FormData {
   name: string;
   email: string;
@@ -119,7 +118,7 @@ const Contact: FC = () => {
         </motion.h2>
 
         <motion.div
-          className="flex flex-col lg:flex-row gap-8 bg-white shadow-xl rounded-lg p-6 lg:p-8"
+          className="flex flex-col lg:flex-row gap-8 bg-blue-50 shadow-xl rounded-lg p-6 lg:p-8"
           variants={containerVariants}
         >
           {/* ===== Form Section ===== */}

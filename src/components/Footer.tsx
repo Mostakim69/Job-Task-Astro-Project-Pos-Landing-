@@ -60,7 +60,7 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
-      className="relative py-16 bg-gray-50"
+      className="relative py-16 bg-blue-50"
     >
       {/* Top gradient line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />

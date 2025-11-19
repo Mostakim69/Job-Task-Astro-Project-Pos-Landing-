@@ -56,7 +56,6 @@ export default function Pricing() {
           </p>
         </motion.div>
 
-        {/* Pricing Cards – সুপার রেসপন্সিভ */}
         <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:gap-6 lg:gap-8 max-w-lg sm:max-w-none mx-auto sm:grid-cols-2 lg:grid-cols-3">
           {pricingPlans.map((plan, index) => (
             <motion.div
@@ -84,8 +83,7 @@ export default function Pricing() {
                   w-full 
                   max-w-md 
                   sm:max-w-none 
-                  bg-white 
-                  rounded-2xl 
+                  rounded-2xl bg-blue-50
                   px-6 py-8 sm:px-8 sm:py-10 
                   ${
                     plan.popular
@@ -95,7 +93,6 @@ export default function Pricing() {
                   relative
                 `}
               >
-                {/* Mobile-এ ব্যাজ */}
                 {plan.popular && (
                   <div className="sm:hidden mb-4 text-center">
                     <span className="inline-block bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase">

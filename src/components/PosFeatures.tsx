@@ -42,7 +42,7 @@ const FeatureCard = ({
       {/* Minimal blue glow on hover – only primary color */}
       <div className="absolute -inset-1 bg-blue-600 rounded-xl opacity-0 group-hover:opacity-10 blur-xl transition duration-700" />
 
-      <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-xl hover:border-blue-200 transition-all duration-500">
+      <div className="relative bg-blue-50 rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-xl hover:border-blue-200 transition-all duration-500">
         <motion.div
           animate={{ scale: [1, 1.15, 1] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
