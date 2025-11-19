@@ -3,14 +3,11 @@ import React, { useState, useEffect } from "react";
 import { CgMenuRight, CgClose } from "react-icons/cg";
 
 const Navbar: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
       const sections = [
         "hero",
         "features",
@@ -38,7 +35,7 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside or resizing to desktop
+  // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -70,17 +67,11 @@ const Navbar: React.FC = () => {
         behavior: "smooth",
       });
     }
-    setMobileMenuOpen(false); // always close on click
+    setMobileMenuOpen(false);
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg py-3"
-          : "bg-transparent py-5 md:py-6"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg py-3 transition-shadow duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-3">
@@ -94,10 +85,10 @@ const Navbar: React.FC = () => {
             <button
               key={id}
               onClick={() => scrollToSection(id)}
-              className="relative group py-2 text-base cursor-pointer lg:text-lg font-medium"
+              className="relative group py-2 cursor-pointer text-base lg:text-lg font-medium transition-colors"
             >
               <span
-                className={`transition-all duration-300 ${
+                className={`${
                   activeSection === id
                     ? "text-blue-600 font-semibold"
                     : "text-gray-600 hover:text-blue-600"
@@ -125,16 +116,16 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-gray-800 hover:text-blue-600 transition-colors cursor-pointer z-50 relative"
+          className="md:hidden text-gray-800 hover:text-blue-600 transition-colors z-50 relative"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <CgClose size={30} /> : <CgMenuRight size={30} />}
         </button>
       </div>
 
-      {/* Mobile Menu Overlay & Panel */}
+      {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 cursor-pointer transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 transition-opacity duration-300 md:hidden ${
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -142,20 +133,18 @@ const Navbar: React.FC = () => {
         onClick={() => setMobileMenuOpen(false)}
       >
         <div
-          className={`absolute inset-x-0 top-0 bg-white shadow-2xl cursor-pointer transform transition-transform duration-300 ease-out ${
+          className={`absolute inset-x-0 top-0 bg-white shadow-2xl transform transition-transform duration-300 ease-out ${
             mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
           }`}
-          onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside menu
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="pt-20 pb-8 px-6 sm:px-8">
-            {" "}
-            {/* pt = navbar height */}
             <nav className="flex flex-col space-y-6">
               {textNavItems.map(({ id, label }) => (
                 <button
                   key={id}
                   onClick={() => scrollToSection(id)}
-                  className={`text-left text-2xl font-medium cursor-pointer transition-colors py-2 ${
+                  className={`text-left text-2xl cursor-pointer font-medium py-2 transition-colors ${
                     activeSection === id
                       ? "text-blue-600"
                       : "text-gray-800 hover:text-blue-600"
