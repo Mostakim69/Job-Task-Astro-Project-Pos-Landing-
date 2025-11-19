@@ -143,7 +143,7 @@ const Testimonials = () => {
 
           {/* Row 1 */}
           <div className="marquee-row">
-            <div className="absolute left-0 top-0 h-full w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
+            <div className="absolute left-0 top-0 h-full w-16 md:w-24 bg-gradient-to from-gray-50 to-transparent pointer-events-none"></div>
 
             <div className="marquee-inner pt-6 pb-4">
               {[...cardsData, ...cardsData].map((card, index) => (
@@ -151,12 +151,12 @@ const Testimonials = () => {
               ))}
             </div>
 
-            <div className="absolute right-0 top-0 h-full w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none"></div>
+            <div className="absolute right-0 top-0 h-full w-16 md:w-24 bg-gradient-to from-gray-50 to-transparent pointer-events-none"></div>
           </div>
 
           {/* Row 2 (reverse) */}
           <div className="marquee-row mt-8">
-            <div className="absolute left-0 top-0 h-full w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
+            <div className="absolute left-0 top-0 h-full w-16 md:w-24 bg-gradient-to from-gray-50 to-transparent pointer-events-none"></div>
 
             <div className="marquee-inner marquee-reverse pt-6 pb-4">
               {[...cardsData, ...cardsData].map((card, index) => (
@@ -164,7 +164,7 @@ const Testimonials = () => {
               ))}
             </div>
 
-            <div className="absolute right-0 top-0 h-full w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none"></div>
+            <div className="absolute right-0 top-0 h-full w-16 md:w-24 bg-gradient-to from-gray-50 to-transparent pointer-events-none"></div>
           </div>
         </div>
       </section>
