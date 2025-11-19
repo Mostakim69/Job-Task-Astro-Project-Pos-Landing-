@@ -86,7 +86,7 @@ const Hero: React.FC = () => {
           </motion.p>
 
           <motion.a
-            href="/services"
+            href="/"
             className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300"
             variants={textVariants}
             custom={2}
