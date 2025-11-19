@@ -10,6 +10,7 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       const sections = [
         "hero",
+        "about",
         "features",
         "testimonials",
         "pricing",
@@ -48,6 +49,7 @@ const Navbar: React.FC = () => {
 
   const textNavItems = [
     { id: "hero", label: "Home" },
+    { id: "about", label: "About" },
     { id: "features", label: "Features" },
     { id: "testimonials", label: "Testimonials" },
     { id: "pricing", label: "Pricing" },
