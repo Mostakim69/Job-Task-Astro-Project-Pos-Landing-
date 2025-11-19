@@ -6,27 +6,58 @@ npm create astro@latest -- --template basics
 
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## 🚀 Project Structure
+# POS SaaS Landing Page
 
-Inside of your Astro project, you'll see the following folders and files:
+A **landing page** for a **Point of Sale (POS)** SaaS product targeting **restaurants, retail stores, and cafes**. This project showcases both **design thinking** and **front-end development skills**, built with React, TypeScript, Tailwind CSS, and Framer Motion for animations.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+---
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🖌️ Features
+
+The landing page includes the following sections:
+
+1. **Hero Section**  
+   - Eye-catching headline describing the POS product’s value  
+   - Short subheading / value proposition  
+   - Clear **Call-to-Action (CTA)** like "Get Started" or "Book a Demo"  
+   - Visuals such as illustrations, mockups, or background images  
+
+2. **Features Section**  
+   - Highlights **4–6 key features** of the POS system  
+   - Features presented using text, icons, or visuals  
+   - Organized to clearly communicate the product’s benefits  
+
+3. **Social Proof Section**  
+   - Customer testimonials, logos, or review snippets  
+   - Builds credibility and trust for the product  
+
+4. **Pricing Section**  
+   - Displays **3 pricing tiers** (Starter, Pro, Enterprise)  
+   - Each card includes plan name, price, short description, and CTA button  
+   - Visual hierarchy and hover effects for better comparison  
+
+5. **Contact Us Section**  
+   - Simple contact form with **Name**, **Email**, and **Message** fields  
+   - Clear **Submit** button  
+
+6. **Footer**  
+   - Minimal footer with basic navigation links (About, Contact, Privacy Policy)  
+   - Social media icons and ©️ copyright line  
+
+---
+
+## ⚙️ Tech Stack
+
+**Required:**  
+- React (with Vite) + TypeScript  
+- Tailwind CSS  
+- Animation library: Framer Motion  
+
+**Optional / Bonus:**  
+- Next.js or Astro (Astro usage considered a plus for modern web adaptability)
+
+---
+
 
 ## 🧞 Commands
 
