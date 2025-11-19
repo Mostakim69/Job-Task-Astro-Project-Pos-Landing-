@@ -1,8 +1,5 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { CreditCard, Package, BarChart3, TrendingUp } from "lucide-react";
-import Stats from "./Stats";
 
 export default function About() {
   const features = [
@@ -141,9 +138,6 @@ export default function About() {
           </motion.div>
         </div>
       </section>
-
-      {/* STATS */}
-      <Stats />
     </div>
   );
 }

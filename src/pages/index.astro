@@ -3,6 +3,7 @@ import HeroSection from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Layout from '../layouts/Layout.astro';
 import About from '../components/About';
+import Stats from '../components/Stats';
 import PosFeatures from '../components/PosFeatures';
 import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
@@ -23,6 +24,7 @@ import Footer from '../components/Footer';
     <About client:load />
   </section>
 
+  <Stats client:load/>
 
   <section id="features">
     <PosFeatures client:load />

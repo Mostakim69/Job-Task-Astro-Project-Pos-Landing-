@@ -1,42 +1,35 @@
-import React from 'react'
-import { motion } from "framer-motion";
-import {
-  
-  Users,
-  CheckCircle2,
-  Zap,
-} from "lucide-react";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Users, CheckCircle2, Zap, Package } from "lucide-react";
 
-function Stats() {
-      const primaryLight = "bg-blue-50";
-      const primaryText = "text-blue-600";
+export default function Stats() {
+  const primaryLight = "bg-blue-50";
+  const primaryText = "text-blue-600";
 
-      const stats = [
-        { icon: Users, value: "10,000+", label: "Businesses Served" },
-        { icon: CheckCircle2, value: "50M+", label: "Transactions Processed" },
-        { icon: Zap, value: "99.9%", label: "Uptime" },
-      ];
+  const stats = [
+    { icon: Users, value: 1000, label: "Businesses Served", suffix: "+" },
+    {
+      icon: CheckCircle2,
+      value: 500000,
+      label: "Transactions Processed",
+      suffix: "+",
+    },
+    { icon: Zap, value: 99.9, label: "Uptime", suffix: "%" },
+    { icon: Package, value: 1200, label: "Products Delivered", suffix: "+" },
+  ];
+
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
-            <motion.div
+            <StatCard
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2, duration: 0.7 }}
-              viewport={{ once: true }}
-              className={`${primaryLight} rounded-2xl p-10 text-center shadow-lg hover:shadow-2xl transition-shadow`}
-            >
-              <stat.icon className={`w-14 h-14 ${primaryText} mx-auto mb-4`} />
-              <h3 className="text-4xl md:text-5xl font-bold text-gray-900">
-                {stat.value}
-              </h3>
-              <p className="mt-3 text-gray-700 font-medium text-lg">
-                {stat.label}
-              </p>
-            </motion.div>
+              stat={stat}
+              index={i}
+              primaryLight={primaryLight}
+              primaryText={primaryText}
+            />
           ))}
         </div>
       </div>
@@ -44,4 +37,56 @@ function Stats() {
   );
 }
 
-export default Stats
+function StatCard({ stat, index, primaryLight, primaryText }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  // Smooth animation using requestAnimationFrame
+  useEffect(() => {
+    if (!inView) return;
+
+    let start = 0;
+    const end = stat.value;
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = progress * end;
+      setCount(value);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [inView, stat.value]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        delay: index * 0.2,
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      }}
+      className={`${primaryLight} rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:scale-105 transition-all`}
+    >
+      <stat.icon className={`w-10 h-10 ${primaryText} mx-auto mb-3`} />
+      <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900">
+        {stat.value > 1000
+          ? Math.floor(count).toLocaleString()
+          : count.toFixed(1)}
+        {stat.suffix}
+      </h3>
+      <p className="mt-1 text-gray-600 text-sm md:text-base font-medium">
+        {stat.label}
+      </p>
+    </motion.div>
+  );
+}
