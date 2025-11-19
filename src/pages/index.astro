@@ -12,12 +12,27 @@ import Footer from '../components/Footer';
 ---
 
 <Layout>
-	
-	<Navbar></Navbar>
-	<HeroSection client:load /> 
-	<PosFeatures client:load />
-	<Testimonials client:load />
-	<Pricing client:load />
-	<Contact client:load />
-	<Footer client:load />
+  <Navbar client:load />
+  
+  <section id="hero">
+    <HeroSection client:load />
+  </section>
+
+  <section id="features">
+    <PosFeatures client:load />
+  </section>
+
+  <section id="testimonials">
+    <Testimonials client:load />
+  </section>
+
+  <section id="pricing">
+    <Pricing client:load />
+  </section>
+
+  <section id="contact">
+    <Contact client:load />
+  </section>
+
+  <Footer client:load />
 </Layout>

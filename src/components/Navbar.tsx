@@ -1,59 +1,181 @@
-import { useState } from "react";
+// components/Navbar.tsx
+import React, { useState, useEffect } from "react";
+import { CgMenuRight, CgClose } from "react-icons/cg";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar: React.FC = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = ["Features", "Pricing", "Testimonials", "Contact"];
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const sections = [
+        "hero",
+        "features",
+        "testimonials",
+        "pricing",
+        "contact",
+      ];
+      const scrollPos = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu when clicking outside or resizing to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const textNavItems = [
+    { id: "hero", label: "Home" },
+    { id: "features", label: "Features" },
+    { id: "testimonials", label: "Testimonials" },
+    { id: "pricing", label: "Pricing" },
+  ];
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 90; // navbar height compensation
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+    setMobileMenuOpen(false); // always close on click
+  };
 
   return (
-    <nav className="sticky top-0 bg-white shadow-sm z-50">
-      <div className="container mx-auto flex items-center justify-between py-4">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg py-3"
+          : "bg-transparent py-5 md:py-6"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold text-primary">POS SaaS</div>
-
-        {/* Desktop Links */}
-        <ul className="hidden md:flex gap-8">
-          {navLinks.map((link) => (
-            <li key={link}>
-              <a href={`#${link.toLowerCase()}`} className="hover:text-secondary">
-                {link}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA Button */}
-        <button className="hidden md:inline-block bg-primary text-white px-5 py-2 rounded-lg hover:bg-indigo-600">
-          Get Started
-        </button>
-
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)}>
-            {/* hamburger icon */}
-            <span className="block w-6 h-0.5 bg-black mb-1"></span>
-            <span className="block w-6 h-0.5 bg-black mb-1"></span>
-            <span className="block w-6 h-0.5 bg-black"></span>
-          </button>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl shadow-lg shadow-blue-500/30 flex-shrink-0"></div>
+          <span className="text-xl font-bold text-gray-900">POS SaaS</span>
         </div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
+          {textNavItems.map(({ id, label }) => (
+            <button
+              key={id}
+              onClick={() => scrollToSection(id)}
+              className="relative group py-2 text-base cursor-pointer lg:text-lg font-medium"
+            >
+              <span
+                className={`transition-all duration-300 ${
+                  activeSection === id
+                    ? "text-blue-600 font-semibold"
+                    : "text-gray-600 hover:text-blue-600"
+                }`}
+              >
+                {label}
+              </span>
+              {activeSection === id && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 rounded-full" />
+              )}
+            </button>
+          ))}
+
+          {/* Contact Button */}
+          <button
+            onClick={() => scrollToSection("contact")}
+            className={`px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-cyan-600 transform hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap ${
+              activeSection === "contact" ? "ring-4 ring-blue-300/50" : ""
+            }`}
+          >
+            Contact Us
+          </button>
+        </nav>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden text-gray-800 hover:text-blue-600 transition-colors cursor-pointer z-50 relative"
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <CgClose size={30} /> : <CgMenuRight size={30} />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <ul className="md:hidden flex flex-col gap-4 p-4 bg-white">
-          {navLinks.map((link) => (
-            <li key={link}>
-              <a href={`#${link.toLowerCase()}`} className="hover:text-secondary">
-                {link}
-              </a>
-            </li>
-          ))}
-          <button className="bg-primary text-white px-5 py-2 rounded-lg hover:bg-indigo-600">
-            Get Started
-          </button>
-        </ul>
-      )}
-    </nav>
+      {/* Mobile Menu Overlay & Panel */}
+      <div
+        className={`fixed inset-0 z-40 cursor-pointer transition-opacity duration-300 md:hidden ${
+          mobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        <div
+          className={`absolute inset-x-0 top-0 bg-white shadow-2xl cursor-pointer transform transition-transform duration-300 ease-out ${
+            mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+          }`}
+          onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside menu
+        >
+          <div className="pt-20 pb-8 px-6 sm:px-8">
+            {" "}
+            {/* pt = navbar height */}
+            <nav className="flex flex-col space-y-6">
+              {textNavItems.map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => scrollToSection(id)}
+                  className={`text-left text-2xl font-medium cursor-pointer transition-colors py-2 ${
+                    activeSection === id
+                      ? "text-blue-600"
+                      : "text-gray-800 hover:text-blue-600"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="mt-8 px-8 py-4 cursor-pointer bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              >
+                Contact Us
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };
 
